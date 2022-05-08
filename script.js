@@ -23,7 +23,7 @@
 
 'use strict';
 
-let numberOfFilms = prompt("How many films you have already watched?", "");
+let numberOfFilms = +prompt("How many films you have already watched?", "");
 
 const personalMovieDB = {
   count: numberOfFilms,
@@ -33,9 +33,30 @@ const personalMovieDB = {
   privat: false
 };
 
-let lastWathedMovie = prompt("What was the last movie you watched?", "");
-let lastMovieRating = prompt("Please rate that movie?", "");
+for (let i = 0; i < 2; i++) {
+  let lastWathedMovie = prompt("What was the last movie you watched?", "");
+  let lastMovieRating = prompt("Please rate that movie?", "");
+  if (lastWathedMovie === ''|| 
+      lastWathedMovie.length > 50 || 
+      lastWathedMovie.length === 0 || 
+      lastWathedMovie == null) {
+    console.log("Error");
+    i--;
+    continue;
+  } else {
+    personalMovieDB.movies[lastWathedMovie] = lastMovieRating;
+    console.log("Done");
+  }
+}
 
-personalMovieDB.movies[lastWathedMovie] = lastMovieRating;
+if (personalMovieDB.count < 10) {
+  console.log("Not so many movies watched");
+} else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+  console.log("You are a regular viewer");
+} else if (personalMovieDB.count > 50) {
+  console.log("You are a cinemaddict");
+} else {
+  console.log("Error");
+}
 
 console.log(personalMovieDB);
